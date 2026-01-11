@@ -6,12 +6,6 @@ from models import Product
 import database_models
 app = FastAPI()
 
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["http://localhost:3000"],
-#     allow_methods=["*"]
-# )
-
 database_models.Base.metadata.create_all(bind=engine)
 
 @app.get("/")
@@ -81,4 +75,5 @@ def delete_product(product_id: int, db: Session = Depends(get_db)):
         db.delete(res_product)
         db.commit()
         return {"message": "Product deleted successfully"}
+
     return {"error": "Product not found"}
